@@ -1,2 +1,2 @@
 # Benevolence
-Benevolence
+Sophomore software Project
