@@ -1,0 +1,255 @@
+@CHARSET "ISO-8859-1";
+
+*{
+	margin:0;
+	padding:0;
+}
+
+html, body{
+	margin: 0;
+	height: 100%;
+	overflow-x: hidden;
+}
+
+body{
+	background-size: cover;
+	background-position: 50% 0%;
+	background-repeat: no-repeat;
+	background-color: rgb(231,231,231);
+}
+
+.topbar{
+	background-color: #265077;
+}
+
+.topbar p{
+	text-align: right;
+	padding: 6px 10px;
+	font-size: 15px;
+	font-family: Arial;
+	text-decoration: none;
+	color: #fff;
+	margin-right: 49px;
+}
+
+.titlebar {
+  background-color: #fff;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+.titlebar ul{
+	float: right;
+	list-style-type: none;
+	margin-top: 20px;
+	margin-right: 17px;
+}
+
+.titlebar ul li{
+	display: inline-block;
+}
+
+.titlebar ul li a{
+	font-size: 21px;
+	font-family: Arial;
+	font-weight: Bold;
+	text-decoration: none;
+	color: rgb(0,0,0);
+	padding: 20px 40px;
+	transition: 0.5s ease;
+}
+
+.titlebar ul li a:hover{
+	color: rgb(20,175,241);
+}
+
+.titlebar ul li.active a{
+	background-color: #fff;
+	color: rgb(20,175,241);
+}
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1100px;
+  position: relative;
+  right: 60px;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: -110px;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: rgb(20,175,241);
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+.text_title{
+	font-size: 42px;
+	font-family: Arial;
+	font-weight: Bold;
+	color: rgb(0,0,0);
+	position: relative;
+    left: 150px;
+}
+
+.main_text p{
+	font-size: 18px;
+	font-family: Arial;
+	color: rgb(0,0,0);
+	position: relative;
+	left: 150px;
+	margin-right: 300px;
+}
+
+.info{
+	margin-top: 40px;
+	font-size: 18px;
+	font-family: Arial;
+	color: #000;
+}
+
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #265077;
+  color: white;
+  text-align: center;
+}
+
+.footer p{
+	font-size: 42px;
+	font-family: Pacifico;
+	color: rgb(220,220,220);
+}
+
+.footer ul li{
+	display: inline-block;
+	list-style: none;
+}
+
+.footer ul li a{
+	text-decoration: none;
+	margin: 10px 30px;
+	font-size: 27px;
+	padding: 20px 20px;
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	transition: 0.5s ease;
+}
+
+.footer ul li a:hover{
+	color: #265077;
+	background-color: #fff;
+}
+
+.footer2 {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #265077;
+  color: white;
+  text-align: center;
+}
+
+.footer2 p{
+	font-size: 42px;
+	font-family: Pacifico;
+	color: rgb(220,220,220);
+}
+
+.footer2 ul li{
+	display: inline-block;
+	list-style: none;
+}
+
+.footer2 ul li a{
+	text-decoration: none;
+	margin: 10px 30px;
+	font-size: 27px;
+	padding: 20px 20px;
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	transition: 0.5s ease;
+}
+
+.footer2 ul li a:hover{
+	color: #265077;
+	background-color: #fff;
+}
+
+.box{
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	width: 300px;
+	padding: 40px;
+	text-color: #265077;
+	text-align: center;
+	transform: translate(-50%,-50%);
+}
