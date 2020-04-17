@@ -21,7 +21,7 @@ if (session.getAttribute("username")==null)
 <input type="text" name="bar" placeholder="Search for donations.."><button class="glass" type="submit"><i class="fa fa-search"></i></button>
 </form>
 <div class="dropdown">
-<button class="name" type="submit">${username} <i class="fa fa-angle-down"></i></button>
+<button class="name" style="overflow:hidden" type="submit">${username}<i class="fa fa-angle-down"></i></button>
 <div class="content">
 <ul>
 <li><a href="UserHome.jsp">Home</a></li>
