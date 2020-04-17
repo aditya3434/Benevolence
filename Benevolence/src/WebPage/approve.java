@@ -1,7 +1,6 @@
-package com.login;
+package WebPage;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,21 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
 import com.login.dao.LoginDao;
 
 /**
- * Servlet implementation class Userlogin
+ * Servlet implementation class approve
  */
-@WebServlet("/Userlogin")
-public class Userlogin extends HttpServlet {
+@WebServlet("/approve")
+public class approve extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Userlogin() {
+    public approve() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,32 +42,25 @@ public class Userlogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				Map<String, String> messages = new HashMap<String, String>();
-				request.setAttribute("messages", messages);
-				messages.put("foo","");
-				messages.put("success", "");
-				String uname = request.getParameter("uname");
-				String pass = request.getParameter("pass");
-				LoginDao dao=new LoginDao();
-				if (uname.equals("Aditya Singh") && pass.equals("9062211a")){
-					HttpSession session = request.getSession();
-					session.setAttribute("username",uname);
-					response.sendRedirect("AdminHome.jsp");
-				}
-				else if (dao.check(uname,pass))
-				{
-					HttpSession session = request.getSession();
-					session.setAttribute("username",uname);
-					response.sendRedirect("UserHome.jsp");
-				}
-				else
-				{
-					messages.put("foo","Invalid Username or Password");
-					messages.put("success", "");
-				    RequestDispatcher rd=request.getRequestDispatcher("UserLogin.jsp");
-				    rd.include(request, response);
-				}
-
+		Map<String, String> messages = new HashMap<String, String>();
+		request.setAttribute("messages", messages);
+		HttpSession session = request.getSession();
+		LoginDao dao=new LoginDao();
+		messages.put("foo","");
+		messages.put("success", "");
+		String uname=request.getParameter("uname");
+		String id=request.getParameter("id");
+		if (dao.check_approval(id, uname)){
+			dao.clear_approval();
+			dao.approval(id, uname);
+			messages.put("success", "Acceptor Approved!\nNote : You can have only 1 approved acceptor. Approving another would replace your current acceptor.");
+			messages.put("foo","");
+		}
+		else{
+			messages.put("success", "");
+			messages.put("foo","You have already approved this acceptor!");
+		}
+		RequestDispatcher rd=request.getRequestDispatcher("Acceptors.jsp");
+	    rd.include(request, response);
 	}
-
 }

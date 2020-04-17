@@ -17,23 +17,26 @@ if (session.getAttribute("username")==null)
 }
 %>
 <div class="titlebar">
-<input type="text" placeholder="Search for donations.."><button class="glass" type="submit"><i class="fa fa-search"></i></button>
+<form action="search" method="post">
+<input type="text" name="bar" placeholder="Search for donations.."><button class="glass" type="submit"><i class="fa fa-search"></i></button>
+</form>
 <div class="dropdown">
 <button class="name" type="submit">${username} <i class="fa fa-angle-down"></i></button>
 <div class="content">
 <ul>
 <li><a href="UserHome.jsp">Home</a></li>
 <hr>
-<li>View Profile</li>
-<li>Edit Profile</li>
+<li><a href="Profile.jsp">Edit Profile</a></li>
+<li><a href="Donations.jsp">All Donations</a></li>
 <hr>
-<li>My Donations</li>
-<li><a href="DonateItem.jsp" style="text-decoration:none">Donate Item</a></li>
+<li><a href="MyDonations.jsp">My Donations</a></li>
+<li><a href="Requests.jsp">My Demands</a></li>
+<li><a href="DonateItem.jsp">Donate Item</a></li>
 </ul>
 </div>
 </div>
-<a class="help" href="#">Help</a>
-<form class="box" action="Userlogout">
+<a class="help" href="Help.jsp" style="position:relative; bottom:40px">Help</a>
+<form class="box" action="Userlogout" style="position:relative; bottom:40px">
 <input type="submit" value="Logout">
 </form>
 </div>
@@ -43,16 +46,25 @@ if (session.getAttribute("username")==null)
 <br>
 <br>
 <center>
-<form action="Donation" method="post">
+<form action="Donation" method="post" enctype="multipart/form-data">
 <p class="text">
+<input type="hidden" name="uname" value=<%=session.getAttribute("username").toString()%>>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<% Date date = new Date(); 
+DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+String strDate = df.format(date);%>
+<input type="hidden" name="date" value=<%=strDate%>>
 Item Category : <select name="item">
   <option>Books</option>
   <option>Clothes</option>
   <option>Food</option>
+  <option>Medicine</option>
   <option>Others</option>
 </select><br>
 <br>
-Item Image : <input type="file" id="myFile" name="filename"><br>
+Item Image (.jpg or .png) : <input type="file" name="photo" value="Book.jpeg"><br>
 <br>
 State : <select name="state">
 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -92,14 +104,17 @@ State : <select name="state">
 <option value="Uttarakhand">Uttarakhand</option>
 <option value="West Bengal">West Bengal</option>
 </select><br>
-Address : <textarea rows = "5" cols = "60" name = "address" placeholder="Enter your address.." style="resize: none;position:relative;top:65px">
+Pickup Point &nbsp:&nbsp <textarea rows = "5" cols = "60" name = "address" placeholder="Enter pickup location.." style="resize: none;position:relative;top:65px">
 </textarea><br>
 <br>
 Description : <textarea rows = "5" cols = "58" name = "description" placeholder="Describe your item.." style="resize: none;position:relative;top:65px">
 </textarea><br>
 <br>
-<input type="submit" value="Put up item for donation"><br>
+<input type="submit" value="Put up item for donation">
+<br>
 </p>
+<div class="error"><p style="color:red;font-size:18px;font-weight:bold;position:relative;top:100px;">${messages.foo}</p></div>
+<div class="success"><p style="color:green;font-size:18px;font-weight:bold;position:relative;top:100px;">${messages.success}</p></div>
 </form>
 </center>
 </div>

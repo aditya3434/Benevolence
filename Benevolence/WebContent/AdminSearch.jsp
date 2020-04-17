@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome Admin</title>
+<title>User Search</title>
 <link rel="stylesheet" type="text/css" href="style3.css">
 <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,10 +35,7 @@ if (session.getAttribute("username")==null)
 <input type="submit" value="Logout">
 </form>
 </div>
-<div class="main" style="background-color:#fff;height:650px">
-<br>
-<center><p style="font-family:Arial;font-weight:bold;font-size:36px">Welcome Admin!</p><br><br>
-<img src="Admin.png" style="width:300px;position:relative;left:10px"><br><br></center>
+<div class="main3">
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -61,66 +58,87 @@ Connection connection = null;
 Statement statement = null;
 ResultSet resultSet = null;
 %>
+<div class="RecentDonations2">
+<center>Search Results</center>
+<br>
+<div class="grid-container">
 <%
 try{ 
 connection = DriverManager.getConnection(connectionUrl, userId, password);
 statement=connection.createStatement();
-String sql ="SELECT COUNT( * ) as number from users";
-ResultSet resultSet3 = statement.executeQuery(sql);
-resultSet3.next();%>
-<p style="font-family:arial;font-size:24px;margin-left:250px;margin-top:50px;margin-bottom:50px">
-<b>Active Users : </b><%=resultSet3.getString("number")%><br>
-<br>
+String sql ="SELECT * FROM users WHERE username LIKE '%"+session.getAttribute("search").toString()+"%'";
+ResultSet resultSet5 = statement.executeQuery(sql);
+int i=0;
+while (resultSet5.next()){
+%>
+  <div class="grid-item">
+  <%@ page import="java.sql.*"%>
+  <%@ page import="java.io.*"%>
+  <%@ page import="java.util.*"%>
+  <%
+  Blob blob = resultSet5.getBlob("profile_photo");
+  
+  InputStream inputStream = blob.getBinaryStream();
+  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+  byte[] buffer = new byte[4096];
+  int bytesRead = -1;
+   
+  while ((bytesRead = inputStream.read(buffer)) != -1) {
+      outputStream.write(buffer, 0, bytesRead);
+  }
+   
+  byte[] imageBytes = outputStream.toByteArray();
+   
+  String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+   
+  inputStream.close();
+  outputStream.close();
+  if (!base64Image.isEmpty()){
+  %>
+  <center><img src="data:image/jpg;base64,<%=base64Image %>" style="max-width:200px; width : auto; height:154px;border-radius:100px; margin-top : 10px;"></center>
+  <%}
+  else{%>
+  <center><img src="user.png" style="max-width:200px; width : auto; height:154px;border-radius:100px; margin-top : 10px;"></center>
+  <%}
+  %>
+  <div class="userdata">
+  <center>
+  <p>
+  Username : <%=resultSet5.getString("username") %><br><br>
+  First name : <%=resultSet5.getString("FirstName") %><br><br>
+  Last name : <%=resultSet5.getString("LastName") %><br><br>
+  Phone no. : <%=resultSet5.getString("phone") %><br><br>
+  E-mail ID : <%=resultSet5.getString("emailid") %><br><br>
+  <br>
+  <form action="banuser" method="post">
+  <input type="submit" value="Ban User" style="background-color: rgb(220,0,0);
+	border: 0;
+	opacity:100%;
+	border-radius: 24px;
+	padding: 10px 10px;
+	width: 250px;
+	height:40px;
+	margin-bottom:20px;
+	color: #fff;
+	transition: 0.4s;">
+  <input type="hidden" name="uname" value=<%=resultSet5.getString("username")%>>
+  </form>
+  </p>
+  </center>
+  </div>
+  </div>
 <%
+++i;
+}
+if (i==0){%>
+	<center>No search results found!</center>
+<%}
 } catch (Exception e) {
 e.printStackTrace();
 }
 %>
-<%
-try{ 
-connection = DriverManager.getConnection(connectionUrl, userId, password);
-statement=connection.createStatement();
-String sql ="SELECT COUNT( * ) as number from offers";
-ResultSet resultSet3 = statement.executeQuery(sql);
-resultSet3.next();%>
-<b>Total items for donation : </b><%=resultSet3.getString("number")%><br>
-<br>
-<%
-} catch (Exception e) {
-e.printStackTrace();
-}
-%>
-</p>
-<%
-try{ 
-connection = DriverManager.getConnection(connectionUrl, userId, password);
-statement=connection.createStatement();
-String sql ="SELECT COUNT( * ) as number from demands";
-ResultSet resultSet3 = statement.executeQuery(sql);
-resultSet3.next();%>
-<p style="font-family:arial;float:right;font-size:24px;margin-right:250px;margin-top:50px;position:relative;bottom:210px;">
-<b>Total donation requests : </b><%=resultSet3.getString("number")%><br>
-<br>
-<%
-} catch (Exception e) {
-e.printStackTrace();
-}
-%>
-<%
-try{ 
-connection = DriverManager.getConnection(connectionUrl, userId, password);
-statement=connection.createStatement();
-String sql ="SELECT COUNT( * ) as number from demands where current_status='approved'";
-ResultSet resultSet3 = statement.executeQuery(sql);
-resultSet3.next();%>
-<b>Approved donation requests : </b><%=resultSet3.getString("number")%><br>
-<br>
-<%
-} catch (Exception e) {
-e.printStackTrace();
-}
-%>
-</p>
+</div>
+</div>
 </div>
 </body>
 </html>

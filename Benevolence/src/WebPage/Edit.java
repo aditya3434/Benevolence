@@ -1,40 +1,39 @@
-package com.login;
+package WebPage;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern; 
 
 import com.login.dao.LoginDao;
 
 /**
- * Servlet implementation class Register
+ * Servlet implementation class Edit
  */
-@WebServlet("/Register")
+@WebServlet("/Edit")
 @MultipartConfig(maxFileSize = 16177215)
-public class Register extends HttpServlet {
+public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Register() {
+    public Edit() {
         super();
         // TODO Auto-generated constructor stub
     }
+    
     public static boolean isValid(String email) 
     { 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
@@ -73,27 +72,28 @@ public class Register extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
-		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 		Part filePart = request.getPart("photo");
 		InputStream inputStream = filePart.getInputStream();
+		HttpSession session = request.getSession();
 		Map<String, String> messages = new HashMap<String, String>();
 		request.setAttribute("messages", messages);
 		messages.put("foo","");
 		messages.put("success", "");
 		LoginDao dao=new LoginDao();
-		if (uname.isEmpty()||pass.isEmpty()||fname.isEmpty()||lname.isEmpty()||phone.isEmpty()||email.isEmpty())
+		if (uname.isEmpty()||pass.isEmpty()||fname.isEmpty()||lname.isEmpty()||email.isEmpty())
 		{
 			messages.put("foo","One of the fields is empty!");
 			messages.put("success", "");
-		    RequestDispatcher rd=request.getRequestDispatcher("Registration.jsp");
+		    RequestDispatcher rd=request.getRequestDispatcher("Profile.jsp");
 		    rd.include(request, response);
 		}
 		else if (!isValid(email))
 		{
 			messages.put("foo","Invalid E-mail ID!");
 			messages.put("success", "");
-		    RequestDispatcher rd=request.getRequestDispatcher("Registration.jsp");
+		    RequestDispatcher rd=request.getRequestDispatcher("Profile.jsp");
 		    rd.include(request, response);
 		}
 		else if (!isValid_no(phone))
@@ -103,18 +103,20 @@ public class Register extends HttpServlet {
 		    RequestDispatcher rd=request.getRequestDispatcher("Registration.jsp");
 		    rd.include(request, response);
 		}
-		else if (uname.equals("Aditya Singh") || dao.check_user(uname))
+		else if (!uname.equals(session.getAttribute("username").toString()) && dao.check_user(uname))
 		{
 			messages.put("foo","Username taken! Try another one!");
 			messages.put("success", "");
-		    RequestDispatcher rd=request.getRequestDispatcher("Registration.jsp");
+		    RequestDispatcher rd=request.getRequestDispatcher("Profile.jsp");
 		    rd.include(request, response);
 		}
 		else
 		{
+			dao.delete_user(session.getAttribute("username").toString());
 			dao.insert(uname, pass, fname, lname, phone, email, inputStream);
-			RequestDispatcher rd=request.getRequestDispatcher("RegisterMessage.jsp");
-		    rd.include(request, response);
+			dao.update(uname, session.getAttribute("username").toString());
+			session.setAttribute("username", uname);
+			response.sendRedirect("UserHome.jsp");
 		}
 	}
 

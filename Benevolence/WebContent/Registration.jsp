@@ -18,7 +18,7 @@
 <li><a href="Contacts.jsp">Contacts</a></li>
 </ul>
 </div>
-<form class="box" action="Register" method="post" style="padding: 40px 40px">
+<form class="box" action="Register" method="post" style="padding: 40px 40px;margin-top:20px" enctype="multipart/form-data">
 <h1>Let's get you started!</h1>
 <br>
 <p>
@@ -30,11 +30,16 @@
 <br>
 <input type="text" name="lname" placeholder="Last Name"><br>
 <br>
+<input type="text" name="phone" placeholder="Phone no."><br>
+<br>
 <input type="text" name="email" placeholder="E-mail ID"><br>
+<br>
+<p style="position:relative;left:32px">Profile Picture : <input type = "file" name="photo"><br></p>
 <br>
 <input type="submit" value="Register"><br>
 <br>
 </p>
+<div class="error"><p style="font-family: arial;color:red;font-size:18px;font-weight:bold;position:relative;top:10px;left:2px">${messages.foo}</p></div>
 </form>
 </body>
 </html>

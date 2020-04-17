@@ -34,6 +34,8 @@ Member Login<br><br>
 <center>
 <br>
 <p class="text">New to Benevolence? <a href="Registration.jsp">Sign up</a></p>
+<div class="error"><p style="font-family: arial;color:red;font-size:18px;font-weight:bold;position:relative;top:20px;left:160px">${messages.foo}</p></div>
+<div class="success"><p style="color:green;font-size:18px;font-weight:bold;position:relative;">${messages.success}</p></div>
 </center>
 </form>
 </body>

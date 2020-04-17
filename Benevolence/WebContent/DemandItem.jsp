@@ -1,0 +1,232 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Welcome ${username}</title>
+<link rel="stylesheet" type="text/css" href="style4.css">
+<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<% response.setHeader("Cache-Control","no-cache, no-store,must revalidate");
+if (session.getAttribute("username")==null)
+{
+	response.sendRedirect("UserLogin.jsp");
+}
+%>
+<div class="titlebar">
+<form action="search" method="post">
+<input type="text" name="bar" placeholder="Search for donations.."><button class="glass" type="submit"><i class="fa fa-search"></i></button>
+</form>
+<div class="dropdown">
+<button class="name" type="submit">${username} <i class="fa fa-angle-down"></i></button>
+<div class="content">
+<ul>
+<li><a href="UserHome.jsp">Home</a></li>
+<hr>
+<li><a href="Profile.jsp">Edit Profile</a></li>
+<li><a href="Donations.jsp">All Donations</a></li>
+<hr>
+<li><a href="MyDonations.jsp">My Donations</a></li>
+<li><a href="Requests.jsp">My Demands</a></li>
+<li><a href="DonateItem.jsp">Donate Item</a></li>
+</ul>
+</div>
+</div>
+<a class="help" href="Help.jsp" style="position:relative; bottom:40px">Help</a>
+<form class="box" action="Userlogout" style="position:relative; bottom:40px">
+<input type="submit" value="Logout">
+</form>
+</div>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%
+String id = request.getParameter("userId");
+String driverName = "com.mysql.jdbc.Driver";
+String connectionUrl = "jdbc:mysql://localhost:3306/benevolence";
+String userId = "root";
+String password = "@ditya23023434";
+
+try {
+Class.forName(driverName);
+} catch (ClassNotFoundException e) {
+e.printStackTrace();
+}
+
+Connection connection = null;
+Statement statement = null;
+ResultSet resultSet = null;
+ResultSet resultSet2 = null;
+%>
+<div class="main">
+<%
+try{ 
+connection = DriverManager.getConnection(connectionUrl, userId, password);
+statement=connection.createStatement();
+String sql ="SELECT * FROM offers WHERE itemID LIKE BINARY "+"'"+session.getAttribute("item").toString()+"'";
+resultSet = statement.executeQuery(sql);
+resultSet.next();%>
+<div style="width:600px;height:470px;float:left">
+<%@ page import="java.sql.*"%>
+  <%@ page import="java.io.*"%>
+  <%@ page import="java.util.*"%>
+  <%
+  Blob blob = resultSet.getBlob("image");
+  
+  InputStream inputStream = blob.getBinaryStream();
+  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+  byte[] buffer = new byte[4096];
+  int bytesRead = -1;
+   
+  while ((bytesRead = inputStream.read(buffer)) != -1) {
+      outputStream.write(buffer, 0, bytesRead);
+  }
+   
+  byte[] imageBytes = outputStream.toByteArray();
+   
+  String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+   
+  inputStream.close();
+  outputStream.close();
+  if (!base64Image.isEmpty()){
+  %>
+  <center><img src="data:image/jpg;base64,<%=base64Image %>" style="max-width:500px; width : auto; height:470px; margin-top : 10px;"></center>
+  <%}
+  else{%>
+  <center><img src="error.png" style="max-width:300px; width : auto; height:231px; margin-top : -20px"></center>
+  <%}
+  %>
+  </div>
+<div class="iteminfo">
+<center><b>Item Info</b></center><br>
+<p>
+<b>Item :</b> <%=resultSet.getString("itemCategory")%><br>
+<br>
+<b>Donor :</b> <%=resultSet.getString("username")%><br>
+<br>
+<b>Item Description :</b> <%=resultSet.getString("itemDesc")%><br>
+<br>
+<b>Pickup location :</b> <%=resultSet.getString("place")%><br>
+<br>
+<b>State :</b> <%=resultSet.getString("state")%><br>
+<br>
+<%
+} catch (Exception e) {
+e.printStackTrace();
+}
+%>
+<%
+try{ 
+connection = DriverManager.getConnection(connectionUrl, userId, password);
+statement=connection.createStatement();
+String sql ="SELECT COUNT( * ) as number from demands where itemID LIKE BINARY "+"'"+session.getAttribute("item").toString()+"'";
+ResultSet resultSet3 = statement.executeQuery(sql);
+resultSet3.next();%>
+<b>Interested candidates : </b><%=resultSet3.getString("number")%>&nbsp&nbsp&nbsp<%if (session.getAttribute("username").equals(resultSet.getString("username")) && Integer.parseInt(resultSet3.getString("number"))>0){ %><a href="Acceptors.jsp">View</a><%} %><br>
+<br>
+<%
+} catch (Exception e) {
+e.printStackTrace();
+}
+%>
+</p>
+</div>
+<hr style="width: 1250px;margin: 0px;">
+<% 
+try{ 
+connection = DriverManager.getConnection(connectionUrl, userId, password);
+statement=connection.createStatement();
+String sql ="SELECT * FROM users WHERE username LIKE BINARY "+"'"+resultSet.getString("username")+"'";
+resultSet2 = statement.executeQuery(sql);
+resultSet2.next();%>
+<div style="width:600px;height:470px;float:left">
+<%@ page import="java.sql.*"%>
+  <%@ page import="java.io.*"%>
+  <%@ page import="java.util.*"%>
+  <%
+  Blob blob = resultSet2.getBlob("profile_photo");
+  
+  InputStream inputStream = blob.getBinaryStream();
+  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+  byte[] buffer = new byte[4096];
+  int bytesRead = -1;
+   
+  while ((bytesRead = inputStream.read(buffer)) != -1) {
+      outputStream.write(buffer, 0, bytesRead);
+  }
+   
+  byte[] imageBytes = outputStream.toByteArray();
+   
+  String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+   
+  inputStream.close();
+  outputStream.close();
+  if (!base64Image.isEmpty()){
+  %>
+  <center><img src="data:image/jpg;base64,<%=base64Image %>" style="max-width:200px; width : auto; height:200px;border-radius:100px; margin-top : 100px;"></center>
+  <%}
+  else{%>
+  <center><img src="user.png" style="max-width:200px; width : auto; height:200px;border-radius:100px; margin-top : 100px;"></center>
+  <%}
+  %>
+  </div>
+<div class="userinfo">
+<center><b>User Info</b></center><br>
+<p>
+<b>Username :</b> <%=resultSet2.getString("username")%><br>
+<br>
+<b>First Name :</b> <%=resultSet2.getString("FirstName")%><br>
+<br>
+<b>Last Name :</b> <%=resultSet2.getString("LastName")%><br>
+<br>
+<b>Phone no. :</b> <%=resultSet2.getString("phone")%><br>
+<br>
+<b>E-mail ID :</b> <%=resultSet2.getString("emailid")%><br>
+<br>
+</p>
+<%
+} catch (Exception e) {
+e.printStackTrace();
+}
+%>
+<%
+try{ 
+connection = DriverManager.getConnection(connectionUrl, userId, password);
+statement=connection.createStatement();
+String sql ="SELECT * FROM demands WHERE username LIKE BINARY "+"'"+session.getAttribute("username").toString()+"' and itemID LIKE BINARY "+"'"+session.getAttribute("item").toString()+"'";
+ResultSet resultSet4 = statement.executeQuery(sql);
+resultSet4.next();
+if (resultSet4.getString("current_status").equals("unapproved")){%>
+	<p style="color:red;font-size:18px"><i class="fa fa-exclamation-circle" style="font-size:18px;color:red"></i>&nbsp&nbspYour donation has not been approved by <%=resultSet2.getString("username") %> yet</p>
+<%}
+else{%>
+<p style="color:green;font-size:18px"><i class="fa fa-check-circle" style="font-size:18px;color:green"></i>&nbsp&nbspYour donation request has been approved by <%=resultSet2.getString("username")%><br><br>
+Now it's time to contact the donor, decide the time and date<br>and meet up at the item pickup location given above<br><br>
+Click the button below when you have received your donation<br><br>
+<form action="deletion" method="post">
+<input type="submit" value="I have received my donation" style="background-color: rgb(7,222,13);
+	border: 0;
+	opacity:100%;
+	border-radius: 24px;
+	padding: 10px 10px;
+	width: 250px;
+	height:40px;
+	color: #fff;
+	transition: 0.4s;">
+  <input type="hidden" name="item" value=<%=resultSet4.getString("itemID")%>>
+</form>
+</p>
+<%}
+} catch (Exception e) {
+e.printStackTrace();
+}
+%>
+</div>
+</div>
+</body>
+</html>

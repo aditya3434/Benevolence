@@ -1,4 +1,4 @@
-package com.login;
+package WebPage;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Userlogout
+ * Servlet implementation class Adminsearch
  */
-@WebServlet("/Userlogout")
-public class Userlogout extends HttpServlet {
+@WebServlet("/Adminsearch")
+public class Adminsearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Userlogout() {
+    public Adminsearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,12 +28,7 @@ public class Userlogout extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		session.removeAttribute("username");
-		session.removeAttribute("messages");
-		session.removeAttribute("item");
-		session.invalidate();
-		response.sendRedirect("UserLogin.jsp");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -41,7 +36,10 @@ public class Userlogout extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		String str=request.getParameter("bar");
+		session.setAttribute("search", str);
+		response.sendRedirect("AdminSearch.jsp");
 	}
 
 }
