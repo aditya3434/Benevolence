@@ -9,9 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class LoginDao {
-	String url="jdbc:mysql://localhost:3306/benevolence";
-	String username="root";
-	String password="@ditya23023434";
+	String url="jdbc:mysql://ec2-3-16-188-106.us-east-2.compute.amazonaws.com:3306/benevolence";
+	String username="aditya";
+	String password="Password123$$";
 	public boolean check(String uname,String pass){
 		String sql="SELECT * FROM users WHERE username LIKE BINARY ? and pass LIKE BINARY ?";
 		try {

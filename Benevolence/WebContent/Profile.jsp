@@ -14,6 +14,7 @@ if (session.getAttribute("username")==null)
 }
 %>
 <div class="titlebar">
+<div style="height:0px"><a style="all:unset;cursor:pointer" href="UserHome.jsp"><img src="Symbol1.png" style="height:50px;position:relative;left:20px;top:-2px"></a></div>
 <form action="search" method="post">
 <input type="text" name="bar" placeholder="Search for donations.."><button class="glass" type="submit"><i class="fa fa-search"></i></button>
 </form>
@@ -46,9 +47,9 @@ if (session.getAttribute("username")==null)
 <%
 String id = request.getParameter("userId");
 String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://localhost:3306/benevolence";
-String userId = "root";
-String password = "@ditya23023434";
+String connectionUrl="jdbc:mysql://ec2-3-16-188-106.us-east-2.compute.amazonaws.com:3306/benevolence";
+String userId="aditya";
+String password="Password123$$";
 
 try {
 Class.forName(driverName);

@@ -17,6 +17,7 @@ if (session.getAttribute("username")==null)
 }
 %>
 <div class="titlebar">
+<div style="height:0px"><a style="all:unset;cursor:pointer" href="UserHome.jsp"><img src="Symbol1.png" style="height:50px;position:relative;left:20px;top:-2px"></a></div>
 <form action="search" method="post">
 <input type="text" name="bar" placeholder="Search for donations.."><button class="glass" type="submit"><i class="fa fa-search"></i></button>
 </form>

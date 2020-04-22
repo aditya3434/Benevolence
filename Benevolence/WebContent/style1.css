@@ -15,7 +15,14 @@ body{
 	background-size: cover;
 	background-position: 50% 0%;
 	background-repeat: no-repeat;
-	background-color: rgb(231,231,231);
+	background: linear-gradient(rgba(20,175,241,0.5),rgba(38,80,119,1));
+	background-attachment: fixed;
+	position:relative;
+	height:1500px;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .topbar{
@@ -66,6 +73,17 @@ body{
 .titlebar ul li.active a{
 	background-color: #fff;
 	color: rgb(20,175,241);
+}
+
+.main{
+	background-color: #fff;
+	width: 1250px;
+	height: auto;
+	position: absolute;
+	top: 10%;
+	left: 9%;
+	margin-bottom: 3%;
+	padding: 50px;
 }
 
 * {box-sizing:border-box}
@@ -170,9 +188,8 @@ body{
 }
 
 .footer {
-  position: relative;
-  left: 0;
-  bottom: 0;
+  position:absolute;
+  bottom:0;
   width: 100%;
   background-color: #265077;
   color: white;
@@ -182,7 +199,7 @@ body{
 .footer p{
 	font-size: 42px;
 	font-family: Pacifico;
-	color: rgb(220,220,220);
+	color: #fff;
 }
 
 .footer ul li{

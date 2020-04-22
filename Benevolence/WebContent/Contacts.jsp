@@ -9,11 +9,12 @@
 <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body style="background:rgb(220,220,220);height:440px">
 <div class="topbar">
 <p>Call Us : 123-123-1234  | Email Us : abcd1234@gmail.com</p>
 </div>
 <div class="titlebar">
+<a href="Home.jsp"><img src="Logo1.png" style="height:50px;position:relative;left:20px;top:7px"></a>
 <ul>
 <li><a href="Home.jsp">Home</a></li>
 <li><a href="UserLogin.jsp">Login</a></li>
@@ -39,9 +40,9 @@
  <br>
 <p>Follow us on</p><br>
 <ul>
-<li><a href="#" class="fa fa-facebook"></a></li>
-<li><a href="#" class="fa fa-instagram"></a></li>
-<li><a href="#" class="fa fa-twitter"></a></li>
+<li><a href="https://www.facebook.com/profile.php?id=100026519284248" class="fa fa-facebook"></a></li>
+<li><a href="https://www.instagram.com/adityasingh390402/" class="fa fa-instagram"></a></li>
+<li><a href="https://www.linkedin.com/in/aditya-singh-847ab3167" class="fa fa-linkedin"></a></li>
 </ul>
 <br>
 <br>

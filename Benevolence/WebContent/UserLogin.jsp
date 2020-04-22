@@ -14,6 +14,7 @@
 <p>Call Us : 123-123-1234  | Email Us : abcd1234@gmail.com</p>
 </div>
 <div class="titlebar">
+<a href="Home.jsp"><img src="Logo1.png" style="height:50px;position:relative;left:20px;top:7px"></a>
 <ul>
 <li><a href="Home.jsp">Home</a></li>
 <li class="active"><a href="UserLogin.jsp">Login</a></li>

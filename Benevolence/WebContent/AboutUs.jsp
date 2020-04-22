@@ -14,6 +14,7 @@
 <p>Call Us : 123-123-1234  | Email Us : abcd1234@gmail.com</p>
 </div>
 <div class="titlebar">
+<a href="Home.jsp"><img src="Logo1.png" style="height:50px;position:relative;left:20px;top:7px"></a>
 <ul>
 <li><a href="Home.jsp">Home</a></li>
 <li><a href="UserLogin.jsp">Login</a></li>
@@ -21,24 +22,25 @@
 <li><a href="Contacts.jsp">Contacts</a></li>
 </ul>
 </div>
+<div class="main">
 <div class="slideshow-container">
 
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
-    <img src="charity.jpg" style="width:110%">
+    <img src="charity.jpg" style="width:90%;height:500px; position:relative; left:120px">
   </div>
 
   <div class="mySlides fade">
-    <img src="img2.jpg" style="width:110%">
+    <img src="img2.jpg" style="width:90%; height:500px; position:relative; left:120px">
   </div>
 
   <div class="mySlides fade">
-    <img src="img3.jpg" style="width:110%">
+    <img src="img3.jpg" style="width:90%; height:500px; position:relative; left:120px">
   </div>
 
   <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  <a class="prev" style="position:relative; bottom:250px;left:120px" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" style="position:relative; bottom:250px;left:1022px" onclick="plusSlides(1)">&#10095;</a>
 </div>
 <br>
 
@@ -97,14 +99,15 @@ to contact me to report any bugs or problems.<br>
 <br>
 </p>
 </div>
+</div>
 <div class="footer">
  <center>
  <br>
 <p>Follow us on</p><br>
 <ul>
-<li><a href="#" class="fa fa-facebook"></a></li>
-<li><a href="#" class="fa fa-instagram"></a></li>
-<li><a href="#" class="fa fa-twitter"></a></li>
+<li><a href="https://www.facebook.com/profile.php?id=100026519284248" class="fa fa-facebook"></a></li>
+<li><a href="https://www.instagram.com/adityasingh390402/" class="fa fa-instagram"></a></li>
+<li><a href="https://www.linkedin.com/in/aditya-singh-847ab3167" class="fa fa-linkedin"></a></li>
 </ul>
 <br>
 <br>
