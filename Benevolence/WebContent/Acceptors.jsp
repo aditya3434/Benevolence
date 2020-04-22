@@ -50,7 +50,7 @@ if (session.getAttribute("username")==null)
 <%
 String id = request.getParameter("userId");
 String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl="jdbc:mysql://ec2-3-16-188-106.us-east-2.compute.amazonaws.com:3306/benevolence";
+String connectionUrl="jdbc:mysql://3.12.236.102:3306/benevolence";
 String userId="aditya";
 String password="Password123$$";
 
